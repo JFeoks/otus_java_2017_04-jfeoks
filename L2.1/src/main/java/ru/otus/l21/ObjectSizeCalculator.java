@@ -56,9 +56,9 @@ public class ObjectSizeCalculator {
     }
 
     public static void arrayDeltaPerNewElementMemoryUsage(Class clazz, int N) throws Exception {
-        int null_size = calculateMemorySize(int[].class, 0);
-        int n_size = calculateMemorySize(int[].class, N);
-        int result = Math.round((float)(n_size - null_size) / N);
+        int nullSize = calculateMemorySize(int[].class, 0);
+        int nSize = calculateMemorySize(int[].class, N);
+        int result = Math.round((float)(nSize - nullSize) / N);
         System.out.println ("Delta memory per element in " + clazz.getCanonicalName() + " = " + result + " bytes");
     }
 
@@ -92,10 +92,10 @@ public class ObjectSizeCalculator {
     }
 
     private static void runGC() throws Exception {
-        for (int r = 0; r < 4; ++ r) _runGC();
+        for (int r = 0; r < 4; ++ r) runGCBody();
     }
 
-    private static void _runGC() throws Exception {
+    private static void runGCBody() throws Exception {
         long usedMem1 = usedMemory(), usedMem2 = Long.MAX_VALUE;
         for (int i = 0; (usedMem1 < usedMem2) && (i < 500); ++ i) {
             runtime.runFinalization();
